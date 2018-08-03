@@ -2,6 +2,14 @@ package com.letzautomate.stepdefinitions;
 
 import java.util.List;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.letzautomate.pages.HomePage;
+import com.letzautomate.pages.RegisterPage;
+import com.letzautomate.pages.SignOnPage;
+import com.letzautomate.selenium.WebDriverManager;
+
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -9,19 +17,29 @@ import cucumber.api.java.en.When;
 
 public class LoginStepDefinitions {
 	
+	WebDriverManager wm = new WebDriverManager();
+	WebDriver driver = wm.getLocalInstance("chrome");
+	HomePage homePage = new HomePage(driver);
+	RegisterPage registerPage = new RegisterPage(driver);
+	SignOnPage signOnPage = new SignOnPage(driver);
+	
 	@Given("^the login page is displayed$")
 	public void the_login_page_is_displayed()  {
-	    System.out.println("the_login_page_is_displayed");
+		driver.manage().window().maximize();
+	    driver.get("http://newtours.demoaut.com");	    
 	}
 
 	@When("^username \"([^\"]*)\" and password \"([^\"]*)\" is entered$")
 	public void username_and_password_is_entered(String arg1, String arg2)  {
 		System.out.println("username_and_password_is_entered");
+		signOnPage.enterUserName(arg1);
+		signOnPage.enterPassword(arg2);
 	}
 
 	@When("^OK button is clicked$")
 	public void ok_button_is_clicked()  {
 		System.out.println("ok_button_is_clicked");
+		signOnPage.clickLoginImageButton();
 	}
 
 	@Then("^application takes the user to the dashboard page$")
