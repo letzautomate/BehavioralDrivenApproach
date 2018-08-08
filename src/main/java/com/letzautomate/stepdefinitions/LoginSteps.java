@@ -5,28 +5,35 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.letzautomate.globalstate.GlobalContext;
 import com.letzautomate.pages.HomePage;
 import com.letzautomate.pages.RegisterPage;
 import com.letzautomate.pages.SignOnPage;
-import com.letzautomate.selenium.WebDriverManager;
+import com.letzautomate.selenium.WebDriverManager1;
 
 import cucumber.api.DataTable;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class LoginStepDefinitions {
+public class LoginSteps {
 	
-	WebDriverManager wm = new WebDriverManager();
-	WebDriver driver = wm.getLocalInstance("chrome");
-	HomePage homePage = new HomePage(driver);
-	RegisterPage registerPage = new RegisterPage(driver);
-	SignOnPage signOnPage = new SignOnPage(driver);
+	GlobalContext globalContext;
+	HomePage homePage;
+	SignOnPage signOnPage;
+	
+	
+	public LoginSteps(GlobalContext globalContext){
+		this.globalContext = globalContext;	
+		homePage = globalContext.getPageObjectsManager().getHomePage();
+		signOnPage = globalContext.getPageObjectsManager().getsignOnPage();
+				
+	}
 	
 	@Given("^the login page is displayed$")
-	public void the_login_page_is_displayed()  {
-		driver.manage().window().maximize();
-	    driver.get("http://newtours.demoaut.com");	    
+	public void the_login_page_is_displayed()  {	
+		homePage.navigateToHomePage();		    
 	}
 
 	@When("^username \"([^\"]*)\" and password \"([^\"]*)\" is entered$")
@@ -40,6 +47,7 @@ public class LoginStepDefinitions {
 	public void ok_button_is_clicked()  {
 		System.out.println("ok_button_is_clicked");
 		signOnPage.clickLoginImageButton();
+		signOnPage.clickSignOffImage();
 	}
 
 	@Then("^application takes the user to the dashboard page$")

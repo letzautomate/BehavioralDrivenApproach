@@ -16,10 +16,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.letzautomate.constants.SeleniumConstants;
 
-public class WebDriverManager {
-	
+public class WebDriverManager1 {
+	WebDriver driver = null;
 	public WebDriver getLocalInstance(String browser){
-		WebDriver driver = null;
+		
 		if(browser.equalsIgnoreCase("CHROME")){
 			System.setProperty(SeleniumConstants.CHROMEDRIVER_KEY, SeleniumConstants.chromeDriver);		
 			driver = new ChromeDriver();

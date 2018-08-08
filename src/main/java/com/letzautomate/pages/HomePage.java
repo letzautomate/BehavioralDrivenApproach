@@ -16,6 +16,10 @@ public class HomePage {
 	@FindBy(xpath="//a[text()='REGISTER']")
 	public WebElement registerLink;
 	
+	public void navigateToHomePage(){
+		driver.get("http://newtours.demoaut.com");
+	}
+	
 	public void clickRegisterLink() {
 		registerLink.click();		
 	}

@@ -22,6 +22,9 @@ public class SignOnPage {
 	@FindBy (xpath="//input[@name='login']")
 	public WebElement loginImageButton;
 	
+	@FindBy (xpath="//a[text()='SIGN-OFF']")
+	public WebElement signOffImage;
+	
 	public void enterUserName(String userName){
 		userNameTextBox.sendKeys(userName);
 	}
@@ -32,6 +35,10 @@ public class SignOnPage {
 	
 	public void clickLoginImageButton(){
 		loginImageButton.click();
+	}
+	
+	public void clickSignOffImage(){
+		signOffImage.click();
 	}
 
 }
